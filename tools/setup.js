@@ -84,6 +84,9 @@ let CLI_BIN = '';
 function findCli() {
   // Windows 上只有 .exe 能直接 spawn（.cmd 是 shim）；unix 用裸名字。
   const want = process.platform === 'win32' ? '.exe' : '';
+  // install 脚本下载的便携 Node 里可能装着 lark-cli
+  const portable = path.join(ROOT, '.tools', 'node', 'node_modules', '@larksuite', 'cli', 'bin', 'lark-cli' + want);
+  if (fs.existsSync(portable)) return portable;
   const dirs = String(process.env.PATH || '').split(path.delimiter).filter(Boolean);
   for (const dir of dirs) {
     const p = path.join(dir, 'lark-cli' + want);

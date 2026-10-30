@@ -18,11 +18,20 @@
 
 ## 3 分钟上手
 
-前提：**Node.js ≥ 22.5**（用了内置 SQLite，见 `node --version`）、一个飞书账号、一个任意 OpenAI 兼容的大模型 API Key。
+**不需要预装任何东西**——连 Node 都不用。Windows 双击 `install.cmd`；macOS / Linux：
 
 ```bash
-git clone <本仓库>
-cd feishu-bridge
+bash install.sh
+```
+
+安装脚本会自动：
+1. 检查系统有没有 Node ≥ 22.5（本项目的 SQLite 需要）；没有就**自动下载官方便携版**到项目目录（免安装、不要管理员权限、不动系统）
+2. `npm install` 装依赖
+3. 进入 `npm run setup` 配置向导
+
+如果你已经装了 Node，直接手动走也一样：
+
+```bash
 npm install
 npm run setup      # 装完直接跑这个向导
 ```
@@ -122,11 +131,24 @@ schtasks /end /tn feishu-bridge      # 停止
 ```
 > 计划任务拉起的进程挂在 `svchost` 下，与终端无关；**别在终端里直接 `wscript start-hidden.vbs`**，那样终端一关进程就被回收。
 
+`schtasks` 和 `start-hidden.vbs` 都会**自动找到便携版 Node**（`install.cmd` 装的 `.tools\node\node.exe`），无需额外设置。只有新开终端手动 `npm start` 时才需要先临时把它加进 PATH：
+
+```powershell
+# Windows（仅便携 Node 场景需要）
+$env:PATH = "$PWD\.tools\node;$env:PATH"
+```
+```bash
+# Linux / macOS（仅便携 Node 场景需要）
+export PATH="$PWD/.tools/node/bin:$PATH"
+```
+
 **Linux / macOS — systemd**
 ```ini
 # ~/.config/systemd/user/feishu-bridge.service
 [Service]
 WorkingDirectory=/path/to/feishu-bridge
+# 系统装了 Node 就用 /usr/bin/node；用的便携版则改成下面这行：
+# ExecStart=/path/to/feishu-bridge/.tools/node/bin/node core/main.js
 ExecStart=/usr/bin/node core/main.js
 Restart=always
 [Install]

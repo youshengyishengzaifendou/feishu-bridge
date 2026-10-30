@@ -38,6 +38,8 @@ web/NOTES.md
 
 # ── Node / 系统 ───────────────────────────────────────────
 node_modules/
+# install.ps1 / install.sh 下载的便携版 Node（免安装，随项目走但不进仓库）
+.tools/
 npm-debug.log*
 *.log
 .DS_Store

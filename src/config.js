@@ -57,6 +57,9 @@ function findCli() {
 
   // 常见 npm 全局位置
   const guess = [];
+  // install.ps1 / install.sh 下载的便携 Node：lark-cli 会装在这里
+  guess.push(path.join(ROOT, '.tools', 'node', 'node_modules', '@larksuite', 'cli', 'bin', 'lark-cli.exe'));
+  guess.push(path.join(ROOT, '.tools', 'node', 'node_modules', '@larksuite', 'cli', 'bin', 'lark-cli'));
   const home = process.env.USERPROFILE || process.env.HOME || '';
   if (home) {
     guess.push(path.join(home, 'AppData', 'Roaming', 'npm', 'node_modules', '@larksuite', 'cli', 'bin', 'lark-cli.exe'));
