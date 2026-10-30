@@ -1,0 +1,76 @@
+{
+  "_comment": "示例档案。npm run setup 会自动生成你自己的 profile.json；也可以照本文件手工写。真实业务档案不要提交进仓库（profile.json 已被 gitignore）。下面用的是通用占位业务，替换成你自己的即可。",
+
+  "version": 1,
+  "name": "小助手",
+  "role": "电商店铺「示例店」的运营助理，通过飞书与老板沟通",
+  "userLabel": "老板",
+
+  "_scope": "工作范围，会原样进 system prompt。写得越具体，模型越不会跑偏。",
+  "scope": "只处理示例店三条产品线的运营数据；其他品类一概不碰、不猜。",
+
+  "_taboos": "禁碰的领域。遇到就回答「不在我的范围里」。",
+  "taboos": ["其他品类"],
+
+  "_series": "业务分组。旧代码里叫「产品线」，可以是项目线、门店、班级。留空 = 不分线，跨线工具自动退化。",
+  "series": [
+    { "key": "产品线A", "aliases": ["A线", "甲"], "desc": "型号 101/102/103" },
+    { "key": "产品线B", "aliases": ["B线", "乙"], "desc": "型号 201/202" },
+    { "key": "产品线C", "aliases": ["C线", "丙"], "desc": "型号 301/302" }
+  ],
+
+  "_tables": "飞书电子表格数据源。整段可以删掉 —— 删掉后助理只做提醒/笔记/对话，读表类问题如实回答「数据源未配置」。",
+  "tables": {
+    "daily": {
+      "token": "把电子表格 URL 里的 token 粘这里（形如：https://xxx.feishu.cn/sheets/AbCdEfGhIjKlMnOpQrStUvWxYz 里的 AbCdEf…）",
+      "label": "示例-日运营",
+      "rows": 900,
+      "sheets": [
+        { "id": "sheet_id_1", "label": "产品线A" },
+        { "id": "sheet_id_2", "label": "产品线B" },
+        { "id": "sheet_id_3", "label": "产品线C" }
+      ],
+      "columns": {
+        "date": 1, "product": 2, "asin": 3, "sku": 4, "price": 5,
+        "rankBig": 6, "rankSmall": 7, "reviews": 8, "rating": 9,
+        "badNew": 10, "badReason": 11, "goodNew": 12, "goodReason": 13,
+        "action": 14, "remark": 23
+      },
+      "actionKinds": ["广告", "促销", "价格", "库存", "其他"]
+    },
+
+    "_weekly": "周报：一行一个 SKU 一个周期。列语义是电商口径，不是的话改 columns 对上自己的表。",
+    "weekly": {
+      "token": "周报表 token",
+      "label": "示例-周报",
+      "rows": 300,
+      "sheets": [
+        { "id": "sheet_id_1", "label": "产品线A" },
+        { "id": "sheet_id_2", "label": "产品线B" },
+        { "id": "sheet_id_3", "label": "产品线C" }
+      ],
+      "columns": {
+        "period": 1, "sku": 2, "asin": 3, "name": 4, "qty": 5, "revenue": 6,
+        "commission": 7, "fulfillment": 8, "cost": 9, "freight": 10,
+        "refund": 11, "dealFee": 12
+      },
+      "commissionFallbackRate": 0.15
+    },
+
+    "_aging": "库龄表：一行一个 SKU，按超龄天数分列。",
+    "aging": {
+      "token": "库龄表 token",
+      "label": "示例-库龄",
+      "sheet": "sheet_id",
+      "columns": {
+        "product": 1, "sku": 2, "warehouse": 3,
+        "d151_180": 8, "d181_210": 9, "d211_270": 10, "d271_365": 11, "d365plus": 12,
+        "unitPrice": 13
+      },
+      "overThresholdDays": 180
+    }
+  },
+
+  "_extra": "任何想让模型知道的业务背景，自由文本，追加进 system prompt。",
+  "extra": ""
+}

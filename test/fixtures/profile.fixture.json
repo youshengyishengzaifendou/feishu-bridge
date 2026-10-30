@@ -1,0 +1,61 @@
+{
+  "_comment": "回归测试夹具：结构与真实 profile 一致，但 token 是假值（读表必然失败，测试不联网）。npm test 通过 BRIDGE_PROFILE_FILE 指向本文件，保证任何 clone 都能跑出相同结果。",
+  "version": 1,
+  "name": "测试助理",
+  "role": "测试用运营助理",
+  "userLabel": "老板",
+  "scope": "只处理三条产品线",
+  "taboos": ["鸡笼"],
+  "series": [
+    { "key": "方形花床", "aliases": ["方形", "方", "fx", "sq"], "desc": "方形镀锌花床，编码 441/442/631/632/841/842" },
+    { "key": "圆形花床", "aliases": ["园形", "圆形", "圆", "yx", "round"], "desc": "圆形花床，1 个装 / 3 个装" },
+    { "key": "带腿高架", "aliases": ["带腿", "高架", "gj", "raised"], "desc": "带腿高架花床" }
+  ],
+  "tables": {
+    "daily": {
+      "token": "FIXTURE_DAILY_TOKEN",
+      "label": "示例-日运营",
+      "rows": 900,
+      "sheets": [
+        { "id": "fixA", "label": "方形花床" },
+        { "id": "fixB", "label": "圆形花床" },
+        { "id": "fixC", "label": "带腿高架" }
+      ],
+      "columns": {
+        "date": 1, "product": 2, "asin": 3, "sku": 4, "price": 5,
+        "rankBig": 6, "rankSmall": 7, "reviews": 8, "rating": 9,
+        "badNew": 10, "badReason": 11, "goodNew": 12, "goodReason": 13,
+        "action": 14, "remark": 23
+      },
+      "actionKinds": ["广告", "促销", "价格", "库存", "其他"]
+    },
+    "weekly": {
+      "token": "FIXTURE_WEEKLY_TOKEN",
+      "label": "示例-周报",
+      "rows": 300,
+      "sheets": [
+        { "id": "fixA", "label": "方形花床" },
+        { "id": "fixB", "label": "圆形花床" },
+        { "id": "fixC", "label": "带腿高架" }
+      ],
+      "columns": {
+        "period": 1, "sku": 2, "asin": 3, "name": 4, "qty": 5, "revenue": 6,
+        "commission": 7, "fulfillment": 8, "cost": 9, "freight": 10,
+        "refund": 11, "dealFee": 12
+      },
+      "commissionFallbackRate": 0.15
+    },
+    "aging": {
+      "token": "FIXTURE_AGING_TOKEN",
+      "label": "示例-库龄",
+      "sheet": "fixD",
+      "columns": {
+        "product": 1, "sku": 2, "warehouse": 3,
+        "d151_180": 8, "d181_210": 9, "d211_270": 10, "d271_365": 11, "d365plus": 12,
+        "unitPrice": 13
+      },
+      "overThresholdDays": 180
+    }
+  },
+  "extra": ""
+}

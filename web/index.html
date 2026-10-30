@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>飞书提醒 · 控制台</title>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link rel="preconnect" href="https://cdn.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- 左侧：概览与时间 -->
+  <aside class="rail">
+    <div class="rail-head">
+      <h1 class="wordmark">飞书提醒</h1>
+      <span class="status" id="service-status">
+        <span class="dot" aria-hidden="true"></span>
+        <span id="service-text">连接中</span>
+      </span>
+    </div>
+
+    <div class="clock">
+      <div class="clock-time" id="clock-time">--:--</div>
+      <div class="clock-date" id="clock-date">—</div>
+    </div>
+
+    <div class="next" id="next-box">
+      <p class="next-label">下一条</p>
+      <p class="next-title" id="next-title">—</p>
+      <p class="next-when" id="next-when">—</p>
+    </div>
+
+    <dl class="counts">
+      <div><dt>待提醒</dt><dd id="c-open">—</dd></div>
+      <div><dt>24 小时内</dt><dd id="c-soon">—</dd></div>
+      <div><dt>已过期</dt><dd id="c-overdue">—</dd></div>
+      <div><dt>已完成</dt><dd id="c-done">—</dd></div>
+    </dl>
+
+    <div class="rail-foot">
+      <p><span class="k">已收消息</span> <span id="h-seen">—</span></p>
+      <p><span class="k">上次轮询</span> <span id="h-lastpoll">—</span></p>
+      <p><span class="k">检查间隔</span> <span id="h-tick">—</span></p>
+    </div>
+  </aside>
+
+  <!-- 右侧：主工作区 -->
+  <main class="work">
+
+    <section class="timeline-sec sec-block" aria-labelledby="tl-head">
+      <div class="sec-head">
+        <h2 id="tl-head">今天与明天</h2>
+        <button class="btn-primary" id="btn-add">加一条提醒</button>
+      </div>
+      <div class="timeline" id="timeline">
+        <div class="tl-hours" id="tl-hours"></div>
+        <div class="tl-grid" id="tl-grid">
+          <div class="tl-nowbar" id="tl-nowbar"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tasks-sec sec-block" aria-labelledby="tasks-head">
+      <div class="sec-head">
+        <h2 id="tasks-head">提醒清单</h2>
+        <div class="filters" role="group" aria-label="筛选">
+          <button class="chip is-on" data-filter="open">待提醒</button>
+          <button class="chip" data-filter="soon">24 小时内</button>
+          <button class="chip" data-filter="done">已完成</button>
+          <button class="chip" data-filter="all">全部</button>
+        </div>
+      </div>
+      <ul class="tasks" id="tasks"></ul>
+      <p class="empty" id="empty" hidden></p>
+    </section>
+
+    <div class="lower">
+      <section class="feed-sec" aria-labelledby="feed-head">
+        <h2 id="feed-head">最近收到的消息</h2>
+        <ul class="feed" id="feed"></ul>
+      </section>
+
+      <section class="instr-sec" id="instr-box" aria-labelledby="instr-head" hidden>
+        <h2 id="instr-head">待处理的指令</h2>
+        <ul class="instr-list" id="instr-list"></ul>
+      </section>
+
+      <section class="review-sec" id="review-box" aria-labelledby="review-head" hidden>
+        <h2 id="review-head">没识别出时间</h2>
+        <ul class="review-list" id="review-list"></ul>
+      </section>
+    </div>
+
+  </main>
+</div>
+
+<!-- 新增提醒 -->
+<dialog id="dlg-add" class="sheet">
+  <form method="dialog" id="form-add">
+    <h2>加一条提醒</h2>
+    <label for="f-text">说什么</label>
+    <textarea id="f-text" rows="2" placeholder="提醒我 11月3日 上午10点 给花盆补货" autocomplete="off"></textarea>
+    <p class="hint" id="parse-hint">会自动识别日期和时间</p>
+
+    <details class="adv">
+      <summary>或者直接指定时间</summary>
+      <div class="adv-row">
+        <label for="f-date">日期</label>
+        <input id="f-date" type="date">
+        <label for="f-time">时间</label>
+        <input id="f-time" type="time" value="10:00">
+      </div>
+    </details>
+
+    <label for="f-note">备注（可选）</label>
+    <input id="f-note" type="text" autocomplete="off">
+    <p class="err" id="add-err" hidden></p>
+
+    <div class="sheet-actions">
+      <button type="button" class="btn-ghost" id="btn-cancel">取消</button>
+      <button type="submit" class="btn-primary">添加</button>
+    </div>
+  </form>
+</dialog>
+
+<!-- 详情 -->
+<dialog id="dlg-task" class="sheet">
+  <div id="task-detail"></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

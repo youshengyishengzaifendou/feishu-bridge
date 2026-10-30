@@ -1,0 +1,8 @@
+# 仓库内统一用 LF 存储；检出时跟随平台默认。
+# 避免「Windows 写、Linux 跑」产生整文件 CRLF 噪声 diff。
+* text=auto
+
+# 真正的二进制
+*.png binary
+*.jpg binary
+*.ico binary

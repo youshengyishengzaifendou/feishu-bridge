@@ -1,0 +1,45 @@
+# ── 密钥 / 个人配置：绝不进仓库 ────────────────────────────
+# 真实配置（含飞书 chatId、大模型 apiKey），由 npm run setup 生成
+config.local.json
+config.json
+# 业务档案：含你的知识库 token、产品线、表结构。setup 访谈生成。
+profile.json
+
+# 旧版本仓库里有过带密钥的 config.json；如果你曾提交过它，
+# 即使现在删掉，历史里仍在 —— 请去服务商后台轮换那把 key。
+
+# ── 运行时数据：装着你的聊天记录、任务、业务表数据 ─────────
+data/
+logs/
+
+# ── 一次性私有脚本 ────────────────────────────────────────
+# 下面这些是我自己排查数据时写的临时脚本，里面写死了我个人的
+# 知识库 token / sheet id，对别人没有意义，也不该公开。
+tools/probe-sheets.js
+tools/read-heads.js
+tools/read-aging.js
+tools/read-more.js
+tools/read-ads.js
+tools/read-kw.js
+tools/scan-freshness.js
+tools/seed-tasks.js
+tools/patch-real-messages.js
+tools/simulate-coldboot.js
+tools/migrate.js
+tools/fix-recurring.js
+tools/only-on-time.js
+tools/diag-advance.js
+tools/test-message-header.js
+tools/test-dedupe.js
+tools/sync-llm-key.js
+
+# ── 前端说明稿 ────────────────────────────────────────────
+web/NOTES.md
+
+# ── Node / 系统 ───────────────────────────────────────────
+node_modules/
+npm-debug.log*
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,39 @@
+{
+  "_comment": "复制本文件为 config.local.json 再改，或直接跑 npm run setup。所有值可缺省，缺省用 src/config.js 里的默认值。",
+
+  "_cliPath": "留空 = 自动查找（lark-cli / npx @larksuite/cli）。装过多个 Node 环境且自动查找失败时才手写绝对路径。",
+  "cliPath": "",
+
+  "_profile": "lark-cli 里的 profile 名。留空 = 用 lark-cli 当前默认 profile（setup 走 config init --new 建应用时用的就是默认 profile）。",
+  "profile": "",
+
+  "_chatId": "机器人和谁说话。留空 = 不主动往固定会话发；setup 会让你先给机器人发一句话，自动抓到这个值。格式 oc_xxx",
+  "chatId": "",
+
+  "_userOpenId": "你的 open_id，仅诊断用，setup 自动填。格式 ou_xxx",
+  "userOpenId": "",
+
+  "sendAs": "bot",
+  "webPort": 4599,
+  "tickMs": 20000,
+  "pollMs": 120000,
+  "defaultHour": 10,
+  "advanceMinutes": [0],
+  "onlyOnTime": true,
+  "catchUpGraceMinutes": 180,
+  "instantReply": true,
+  "dataCache": true,
+
+  "llm": {
+    "_comment": "任意 OpenAI 兼容接口。npm run setup 会交互式写入，不要手填进本仓库的同名文件。",
+    "baseUrl": "",
+    "apiKey": "",
+    "model": "",
+    "maxTokens": 4000,
+    "temperature": 0.3,
+    "timeoutMs": 60000,
+    "retries": 2,
+    "reasoningEffort": "",
+    "supportsTools": true
+  }
+}
